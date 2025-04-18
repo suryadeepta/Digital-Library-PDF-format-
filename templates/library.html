@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Library</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='library.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>📚 PDF Library</h1>
+
+            {% if pdf_files %}
+                <ul>
+                    {% for topic, files in pdf_files.items() %}
+                        <li>
+                            <strong>{{ topic }}</strong>
+                            <ul>
+                                {% for file in files %}
+                                    <li><a href="{{ url_for('view_pdf', topic=topic, filename=file) }}" target="_blank">{{ file }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No PDFs found.</p>
+            {% endif %}
+            
+            <form action="{{ url_for('index') }}" method="get">
+                <button type="submit" class="nav-button">⬅️ Back to Upload</button>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>
